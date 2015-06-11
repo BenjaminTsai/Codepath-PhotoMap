@@ -8,7 +8,7 @@
         <!--Add Location-->
         <scene sceneID="iO8-f3-thv">
             <objects>
-                <viewController id="eZf-Nb-6PU" customClass="LocationsViewController" customModule="Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationsViewController" id="eZf-Nb-6PU" customClass="LocationsViewController" customModule="Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vio-CG-J2y"/>
                         <viewControllerLayoutGuide type="bottom" id="nWs-YP-WbV"/>
@@ -107,7 +107,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-Fe-kQR">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnG-mA-DEQ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnG-mA-DEQ">
                                 <rect key="frame" x="128" y="454" width="64" height="64"/>
                                 <state key="normal" image="camera">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -153,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ln0-Cd-rAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="890.13333333333333" y="-2.8399999999999999"/>
+            <point key="canvasLocation" x="983" y="-3"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Pe3-qy-KTk">

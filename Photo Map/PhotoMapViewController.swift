@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class PhotoMapViewController: UIViewController {
+class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -21,7 +21,25 @@ class PhotoMapViewController: UIViewController {
     
     @IBAction func onCamera(sender: AnyObject) {
         NSLog("onCamera")
+        
+        var vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        
+        self.presentViewController(vc, animated: true, completion: nil)
     }
+    
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+            var originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            var editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+            
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
 
     /*
     // MARK: - Navigation
