@@ -69,12 +69,20 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
             annotationView.canShowCallout = true
             annotationView.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:50))
+            annotationView.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
         }
         
-        let imageView = annotationView.leftCalloutAccessoryView as! UIImageView
-        imageView.image = self.selectedImage
+        let leftImageView = annotationView.leftCalloutAccessoryView as! UIImageView
+        leftImageView.image = self.selectedImage
+        
+        let rightButton = annotationView.rightCalloutAccessoryView as! UIButton
+        rightButton.addTarget(self, action: "pushImage", forControlEvents: UIControlEvents.TouchUpInside)
         
         return annotationView
+    }
+    
+    func pushImage() {
+         performSegueWithIdentifier("photoSegue", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -82,6 +90,10 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
             let navVc = segue.destinationViewController as! UINavigationController
             let locationVc = navVc.topViewController as! LocationsViewController
             locationVc.photoViewDelegate = self
+        } else if segue.identifier == "photoSegue" {
+            let photoVC = segue.destinationViewController as! PhotoViewController
+            photoVC.photoImage = self.selectedImage
         }
+        
     }
 }

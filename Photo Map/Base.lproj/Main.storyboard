@@ -106,7 +106,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-Fe-kQR">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnG-mA-DEQ">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnG-mA-DEQ">
                                 <rect key="frame" x="128" y="454" width="64" height="64"/>
                                 <state key="normal" image="camera">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -130,11 +130,39 @@
                     <connections>
                         <outlet property="mapView" destination="bIh-Fe-kQR" id="vQ1-Ai-Hdi"/>
                         <segue destination="oXc-hp-ouj" kind="modal" identifier="mapToLocationSegue" id="Xm4-78-MR0"/>
+                        <segue destination="zRY-qz-F3H" kind="push" identifier="photoSegue" id="WCh-Zg-Vni"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJh-RJ-6cc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="626" y="655"/>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="prb-7W-Sqb">
+            <objects>
+                <viewController storyboardIdentifier="PhotoViewController" id="zRY-qz-F3H" customClass="PhotoViewController" customModule="Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Eht-rs-X48"/>
+                        <viewControllerLayoutGuide type="bottom" id="2H6-TA-WeD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="038-uS-0MH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1zh-XP-Bei">
+                                <rect key="frame" x="0.0" y="-174" width="320" height="742"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jD0-f5-Tnh"/>
+                    <connections>
+                        <outlet property="photoImageView" destination="1zh-XP-Bei" id="ThI-eH-dSQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dzv-Q0-Ljb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="626" y="1435"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wru-pz-edi">
