@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="CM3-Mn-D8D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ors-RU-xN4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -92,6 +92,50 @@
             </objects>
             <point key="canvasLocation" x="537.06666666666661" y="-2.8399999999999999"/>
         </scene>
+        <!--Photo Map View Controller-->
+        <scene sceneID="OQG-Rl-fVy">
+            <objects>
+                <viewController id="eMx-un-vua" customClass="PhotoMapViewController" customModule="Photo_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tAL-X3-Ave"/>
+                        <viewControllerLayoutGuide type="bottom" id="euj-xT-WE3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4tv-Cy-uv0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bIh-Fe-kQR">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnG-mA-DEQ">
+                                <rect key="frame" x="128" y="454" width="64" height="64"/>
+                                <state key="normal" image="camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCamera:" destination="eMx-un-vua" eventType="touchUpInside" id="Ak2-AJ-ENO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bIh-Fe-kQR" firstAttribute="leading" secondItem="4tv-Cy-uv0" secondAttribute="leading" id="6MV-W9-eTX"/>
+                            <constraint firstAttribute="trailing" secondItem="bIh-Fe-kQR" secondAttribute="trailing" id="AAh-LR-1ZH"/>
+                            <constraint firstAttribute="centerX" secondItem="WnG-mA-DEQ" secondAttribute="centerX" id="E08-Rq-ylv"/>
+                            <constraint firstItem="euj-xT-WE3" firstAttribute="top" secondItem="WnG-mA-DEQ" secondAttribute="bottom" constant="50" id="egN-n7-9sg"/>
+                            <constraint firstItem="bIh-Fe-kQR" firstAttribute="top" secondItem="tAL-X3-Ave" secondAttribute="bottom" id="jXx-vi-06V"/>
+                            <constraint firstItem="euj-xT-WE3" firstAttribute="top" secondItem="bIh-Fe-kQR" secondAttribute="bottom" id="kIM-6h-flV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="WsN-sH-mUe"/>
+                    <connections>
+                        <outlet property="mapView" destination="bIh-Fe-kQR" id="vQ1-Ai-Hdi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pJh-RJ-6cc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="537" y="655"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="Aqg-6j-3Zk">
             <objects>
@@ -129,7 +173,28 @@
             </objects>
             <point key="canvasLocation" x="104" y="-2.8399999999999999"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Wru-pz-edi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ors-RU-xN4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ePL-Aj-6J1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eMx-un-vua" kind="relationship" relationship="rootViewController" id="NPC-uV-sze"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w41-rk-rzb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="65" y="655"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="camera" width="64" height="64"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
