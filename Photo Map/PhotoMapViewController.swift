@@ -17,9 +17,13 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
 
     @IBOutlet weak var mapView: MKMapView!
     
+    let mapSegueIdentifier = "mapToLocationSegue"
+    var selectedImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        mapView.delegate = self
         mapView.setRegion(MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667), MKCoordinateSpanMake(0.1, 0.1)), animated: false)
     }
     
@@ -37,10 +41,11 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         var originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         var editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        
+        self.selectedImage = originalImage
             
         dismissViewControllerAnimated(true, completion: nil)
-        
-        performSegueWithIdentifier("mapToLocationSegue", sender: self)
+        performSegueWithIdentifier(mapSegueIdentifier, sender: self)
     }
     
     func photoMapViewController(sender: UIViewController, didSelectLatitude: Double, longitude: Double) {
@@ -53,6 +58,7 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
         point.title = "\(didSelectLatitude)"
         
         mapView.addAnnotation(point)
+        mapView.centerCoordinate = point.coordinate
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -66,14 +72,16 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
         }
         
         let imageView = annotationView.leftCalloutAccessoryView as! UIImageView
-        imageView.image = UIImage(named: "camera")
+        imageView.image = self.selectedImage
         
         return annotationView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navVc = segue.destinationViewController as! UINavigationController
-        let locationVc = navVc.topViewController as! LocationsViewController
-        locationVc.photoViewDelegate = self
+        if segue.identifier == mapSegueIdentifier {
+            let navVc = segue.destinationViewController as! UINavigationController
+            let locationVc = navVc.topViewController as! LocationsViewController
+            locationVc.photoViewDelegate = self
+        }
     }
 }
