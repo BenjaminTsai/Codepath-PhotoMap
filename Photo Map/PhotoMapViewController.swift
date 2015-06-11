@@ -9,7 +9,11 @@
 import UIKit
 import MapKit
 
-class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+protocol PhotoMapViewControllerDelegate {
+    func photoMapViewController(sender: UIViewController, didSelectLatitude: Double, longitude: Double)
+}
+
+class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PhotoMapViewControllerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -30,25 +34,46 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-            var originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-            var editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        var originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        var editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
             
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        performSegueWithIdentifier("mapToLocationSegue", sender: self)
     }
     
+    func photoMapViewController(sender: UIViewController, didSelectLatitude: Double, longitude: Double) {
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        NSLog("Add annotation \(didSelectLatitude) - \(longitude)")
+        
+        let point = MKPointAnnotation()
+        point.coordinate = CLLocationCoordinate2D(latitude: didSelectLatitude, longitude: longitude)
+        point.title = "\(didSelectLatitude)"
+        
+        mapView.addAnnotation(point)
+    }
     
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        let reuseID = "myAnnotationView"
+        
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
+        if (annotationView == nil) {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+            annotationView.canShowCallout = true
+            annotationView.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:50))
+        }
+        
+        let imageView = annotationView.leftCalloutAccessoryView as! UIImageView
+        imageView.image = UIImage(named: "camera")
+        
+        return annotationView
+    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let navVc = segue.destinationViewController as! UINavigationController
+        let locationVc = navVc.topViewController as! LocationsViewController
+        locationVc.photoViewDelegate = self
     }
-    */
-
 }

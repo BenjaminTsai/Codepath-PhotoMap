@@ -13,6 +13,7 @@ class LocationsViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var photoViewDelegate: PhotoMapViewControllerDelegate!
     var results: NSArray = []
     
     override func viewDidLoad() {
@@ -38,6 +39,15 @@ class LocationsViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.location = results[indexPath.row] as! NSDictionary
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var venue = results[indexPath.row] as! NSDictionary
+        
+        var lat = venue.valueForKeyPath("location.lat") as! Double
+        var lng = venue.valueForKeyPath("location.lng") as! Double
+        
+        photoViewDelegate.photoMapViewController(self, didSelectLatitude: lat, longitude: lng)
     }
     
     func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
